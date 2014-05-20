@@ -7,6 +7,12 @@ object ApplicationBuild extends Build {
 
   val appVersion = "1.0"
 
+  val appDependencies = Seq(
+    libraryDependencies += "com.typesafe.play" %% "play" % "2.2.1"
+  )
+
+  var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
+
   var sAppN: Seq[Def.Setting[_]] = Seq(name := appName)
   var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
   var sOrg: Seq[Def.Setting[_]] = Seq(organization := "com.dwp.carers")
@@ -18,5 +24,7 @@ object ApplicationBuild extends Build {
         Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
     })
 
-  val main = Project(id = appName, base = file("."), settings = publ++sAppN ++ sAppV ++ sOrg)
+  var creds: Seq[Def.Setting[_]] = Seq(credentials += Credentials("Artifactory Realm", "build.3cbeta.co.uk", "admin", "{DESede}GwYNYWCGg88uVuPjHixZ4g=="))
+
+  val main = Project(id = appName, base = file("."), settings = Project.defaultSettings ++ publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies ++ creds)
 }
