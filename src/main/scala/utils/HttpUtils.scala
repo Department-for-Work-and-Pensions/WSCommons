@@ -4,6 +4,7 @@ import play.api.libs.ws.Response
 import play.api.libs.ws.WS
 import scala.concurrent.duration.FiniteDuration
 import scala.concurrent.Await
+import scala.xml.Elem
 
 object HttpUtils {
 
@@ -18,6 +19,8 @@ object HttpUtils {
 
     def post[T](m:Response => T) = new {
       def exec(map:Map[String,Seq[String]] = Map.empty[String,Seq[String]]):T = Await.result(WS.url(url).post(map).map(m),timeout)
+      def exec(s:String):T = Await.result(WS.url(url).post(s).map(m),timeout)
+      def exec(s:Elem):T = Await.result(WS.url(url).post(s).map(m),timeout)
     }
 
     def postXml[T](m:Response => T) = new {
