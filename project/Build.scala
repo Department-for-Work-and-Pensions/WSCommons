@@ -2,13 +2,15 @@ import sbt._
 import sbt.Keys._
 
 
+
 object ApplicationBuild extends Build {
   val appName = "wsCommons"
 
-  val appVersion = "1.0"
+  val appVersion = "2.0"
 
   val appDependencies = Seq(
-    libraryDependencies += "com.typesafe.play" %% "play" % "2.2.1"
+    libraryDependencies += "com.typesafe.play" %% "play" % "2.3.5",
+    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.3.5"
   )
 
   var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
