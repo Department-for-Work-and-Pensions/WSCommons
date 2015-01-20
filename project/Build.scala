@@ -6,11 +6,11 @@ import sbt.Keys._
 object ApplicationBuild extends Build {
   val appName = "wsCommons"
 
-  val appVersion = "2.1"
+  val appVersion = "2.2"
 
   val appDependencies = Seq(
-    libraryDependencies += "com.typesafe.play" %% "play" % "2.3.6",
-    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.3.6"
+    libraryDependencies += "com.typesafe.play" %% "play" % "2.3.7",
+    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.3.7"
   )
 
   var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
@@ -28,5 +28,8 @@ object ApplicationBuild extends Build {
 
   var creds: Seq[Def.Setting[_]] = Seq(credentials += Credentials("Artifactory Realm", "build.3cbeta.co.uk", "admin", "{DESede}GwYNYWCGg88uVuPjHixZ4g=="))
 
-  val main = Project(id = appName, base = file("."), settings = Project.defaultSettings ++ publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies ++ creds)
+  var appSettings: Seq[Def.Setting[_]] = publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies ++ creds
+
+  val main = Project(id = appName, base = file(".")).settings(appSettings: _*)
+
 }
