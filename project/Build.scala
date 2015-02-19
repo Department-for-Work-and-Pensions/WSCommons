@@ -6,14 +6,15 @@ import sbt.Keys._
 object ApplicationBuild extends Build {
   val appName = "wsCommons"
 
-  val appVersion = "2.2"
+  val appVersion = "2.3"
 
   val appDependencies = Seq(
-    libraryDependencies += "com.typesafe.play" %% "play" % "2.3.7",
-    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.3.7"
+    libraryDependencies += "com.typesafe.play" %% "play" % "2.3.8",
+    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.3.8"
   )
 
-  var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/")
+  var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
+    resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/releases/")
 
   var sAppN: Seq[Def.Setting[_]] = Seq(name := appName)
   var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
