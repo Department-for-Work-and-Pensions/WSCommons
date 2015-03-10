@@ -25,11 +25,10 @@ object ApplicationBuild extends Build {
     publishTo <<= version {
       (v: String) =>
         Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
-    })
+    },isSnapshot := true)
 
-  var creds: Seq[Def.Setting[_]] = Seq(credentials += Credentials("Artifactory Realm", "build.3cbeta.co.uk", "admin", "{DESede}GwYNYWCGg88d9F5rAo7Zbw=="), isSnapshot := true)
 
-  var appSettings: Seq[Def.Setting[_]] = publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies ++ creds
+  var appSettings: Seq[Def.Setting[_]] = publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies
 
   val main = Project(id = appName, base = file(".")).settings(appSettings: _*)
 
