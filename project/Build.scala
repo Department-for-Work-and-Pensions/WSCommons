@@ -18,18 +18,17 @@ object ApplicationBuild extends Build {
 
   var sAppN: Seq[Def.Setting[_]] = Seq(name := appName)
   var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
-  var sOrg: Seq[Def.Setting[_]] = Seq(organization := "com.dwp.carers")
+  var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
 
   var publ: Seq[Def.Setting[_]] = Seq(
     publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
     publishTo <<= version {
       (v: String) =>
         Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
-    })
+    },isSnapshot := true)
 
-  var creds: Seq[Def.Setting[_]] = Seq(credentials += Credentials("Artifactory Realm", "build.3cbeta.co.uk", "admin", "{DESede}GwYNYWCGg88d9F5rAo7Zbw=="), isSnapshot := true)
 
-  var appSettings: Seq[Def.Setting[_]] = publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies ++ creds
+  var appSettings: Seq[Def.Setting[_]] = publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies
 
   val main = Project(id = appName, base = file(".")).settings(appSettings: _*)
 
