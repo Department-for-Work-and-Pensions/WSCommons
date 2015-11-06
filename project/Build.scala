@@ -13,7 +13,7 @@ object ApplicationBuild extends Build {
     libraryDependencies += "org.specs2" %% "specs2-mock" % "3.3.1" % "test" withSources() withJavadoc(),
     libraryDependencies += "org.specs2" %% "specs2-junit" % "3.3.1" % "test" withSources() withJavadoc(),
     libraryDependencies += "com.typesafe.play" %% "play" % "2.4.3",
-    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.4.2"
+    libraryDependencies += "com.typesafe.play" %% "play-ws" % "2.4.3"
   )
 
   var sR: Seq[Def.Setting[_]] = Seq(resolvers += "Carers repo" at "http://build.3cbeta.co.uk:8080/artifactory/repo/",
