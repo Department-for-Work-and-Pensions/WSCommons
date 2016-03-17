@@ -24,13 +24,16 @@ object ApplicationBuild extends Build {
   var sAppV: Seq[Def.Setting[_]] = Seq(version := appVersion)
   var sOrg: Seq[Def.Setting[_]] = Seq(organization := "gov.dwp.carers")
 
+  val isSnapshotBuild = appVersion.endsWith("-SNAPSHOT")
   var publ: Seq[Def.Setting[_]] = Seq(
     publishTo := Some("Artifactory Realm" at "http://build.3cbeta.co.uk:8080/artifactory/repo/"),
     publishTo <<= version {
       (v: String) =>
-        Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
-    },isSnapshot := true)
-
+        if (isSnapshotBuild)
+          Some("snapshots" at "http://build.3cbeta.co.uk:8080/artifactory/libs-snapshot-local")
+        else
+          Some("releases" at "http://build.3cbeta.co.uk:8080/artifactory/libs-release-local")
+    })
 
   var appSettings: Seq[Def.Setting[_]] = sV ++ publ ++ sAppN ++ sR ++ sAppV ++ sOrg ++ appDependencies
 
